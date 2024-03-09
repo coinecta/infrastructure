@@ -1,0 +1,38 @@
+version: '3'
+name: coinecta-infra
+services:
+  cardano-node:
+    image: inputoutput/cardano-node:latest
+    container_name: cardano-node
+    env_file:
+      - .env
+    volumes:
+      - ./data/cardano/ipc:/ipc
+      - /home/rawriclark/Cardano/db:/data/db
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    ports:
+      - "35432:5432"
+    env_file:
+      - .env
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+
+  coinecta-sync:
+    image: coinecta-sync-test
+    container_name: coinecta-sync
+    env_file:
+      - .env
+    volumes:
+      # - ./data/cardano/ipc:/ipc
+      - /home/rawriclark/.dmtr/tmp/dsad-1430c4:/ipc
+
+  coinecta-api:
+    image: coinecta-api-test
+    container_name: coinecta-api
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
