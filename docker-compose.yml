@@ -9,6 +9,11 @@ services:
     volumes:
       - ./data/cardano/ipc:/ipc
       - /home/rawriclark/Cardano/db:/data/db
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   postgres:
     image: postgres:latest
@@ -19,20 +24,66 @@ services:
       - .env
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   coinecta-sync:
-    image: coinecta-sync-test
+    image: coinecta-sync
     container_name: coinecta-sync
     env_file:
       - .env
     volumes:
-      # - ./data/cardano/ipc:/ipc
-      - /home/rawriclark/.dmtr/tmp/dsad-1430c4:/ipc
+      - ./data/cardano/ipc:/ipc
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    depends_on:
+      - postgres
 
   coinecta-api:
-    image: coinecta-api-test
+    image: coinecta-api
     container_name: coinecta-api
     env_file:
       - .env
     ports:
       - "8080:8080"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    depends_on:
+      - coinecta-sync
+      - postgres
+
+  coinecta-catcher:
+    image: coinecta-catcher
+    container_name: coinecta-catcher
+    env_file:
+      - .env
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    depends_on:
+      - coinecta-api
+      - cardano-submit-api
+
+  cardano-submit-api:
+    image: cardano-submit-api
+    container_name: cardano-submit-api
+    volumes:
+      - ./data/cardano/ipc:/ipc
+    ports:
+      - "8090:8090"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
