@@ -8,6 +8,7 @@
     "AllowedHosts": "*",
     "ReferenceKeyPrefix": "000643b0",
     "StakeKeyPrefix": "000de140",
+    "CardanoNodeSocketPath": "/ipc/node.socket",
     "CardanoNetworkMagic": 764824073,
     "CoinectaStakeKeyImgUrl": "ipfs://bafybeigao7lblizfqnizirlsdxjljfzibexuwaak7tehuz4uermlq7lvla",
     "CoinectaStakeMintingPolicyId": "61b3802ce748ed1fdaad2d6c744b19f104285f7d318172a5d4f06a4e",
