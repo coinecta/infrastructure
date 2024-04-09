@@ -6,7 +6,7 @@ EXPOSE 8080
 # Use SDK image to build the application
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
-ARG COMMIT=c47102c54a0f306f529ce1a9e05bc0675285905b
+ARG COMMIT=d8e98411c2ffdaa80e27e97b3132b4cfe4ec4d00
 RUN git clone https://github.com/coinecta/coinecta-offchain.git
 WORKDIR /app/coinecta-offchain/src/Coinecta.API
 RUN git checkout ${COMMIT}
