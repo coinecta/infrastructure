@@ -5,7 +5,7 @@ WORKDIR /app
 # Use SDK image to build the application
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
-ARG COMMIT=56d420dcc6270904f5d2bb09d0d90c90dbcad0d2
+ARG COMMIT=d8e98411c2ffdaa80e27e97b3132b4cfe4ec4d00
 RUN git clone https://github.com/coinecta/coinecta-offchain.git
 WORKDIR /app/coinecta-offchain/src/Coinecta.Catcher
 RUN git checkout ${COMMIT}
