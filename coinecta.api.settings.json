@@ -6,7 +6,7 @@
         }
     },
     "AllowedHosts": "*",
-    "UtxosByAddressExpirationMilliseconds": 300000,
+    "UtxosByAddressExpirationMillisecond": 300000,
     "ReferenceKeyPrefix": "000643b0",
     "StakeKeyPrefix": "000de140",
     "CardanoNodeSocketPath": "/ipc/node.socket",
