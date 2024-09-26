@@ -1,14 +1,13 @@
-version: '3'
 name: coinecta-infra
 services:
   cardano-node:
-    image: inputoutput/cardano-node:latest
+    image: ghcr.io/intersectmbo/cardano-node:9.2.1
     container_name: cardano-node
     env_file:
       - .env
     volumes:
       - ./data/cardano/ipc:/ipc
-      - /home/rawriclark/Cardano/db:/data/db
+      - /your/db/here:/data/db
     logging:
       driver: json-file
       options:
@@ -36,7 +35,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./data/cardano/ipc:/ipc
+      - /tmp:/ipc
     logging:
       driver: json-file
       options:
@@ -51,7 +50,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./data/cardano/ipc:/ipc
+      -  /tmp:/ipc
     ports:
       - "8080:8080"
     logging:
@@ -80,10 +79,13 @@ services:
       - cardano-submit-api
 
   cardano-submit-api:
-    image: cardano-submit-api
     container_name: cardano-submit-api
+    image: ghcr.io/blinklabs-io/tx-submit-api:0.17.5
+    restart: unless-stopped
     volumes:
-      - ./data/cardano/ipc:/ipc
+      - /home/rawriclark/CardanoPreview/pool/txpipe/relay1/ipc:/node-ipc
+    environment:
+      - CARDANO_NETWORK=preview
     ports:
       - "8090:8090"
     logging:
