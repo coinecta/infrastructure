@@ -1,19 +1,5 @@
 name: coinecta-infra
 services:
-  cardano-node:
-    image: ghcr.io/intersectmbo/cardano-node:9.2.1
-    container_name: cardano-node
-    env_file:
-      - .env
-    volumes:
-      - ./data/cardano/ipc:/ipc
-      - /your/db/here:/data/db
-    logging:
-      driver: json-file
-      options:
-        max-size: "10m"
-        max-file: "3"
-
   postgres:
     image: postgres:latest
     container_name: postgres
