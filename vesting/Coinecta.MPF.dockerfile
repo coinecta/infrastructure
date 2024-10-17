@@ -1,6 +1,6 @@
 FROM node:20-bullseye
 WORKDIR /app
-ARG COMMIT=190e05069462dc00d0dcd540e782552512a6cc91
+ARG COMMIT=c8824a0ec52b2f1a03d4b6f0fc7803ccc85e740d
 RUN git clone https://github.com/coinecta/mpf-api.git
 WORKDIR /app/mpf-api
 RUN git checkout ${COMMIT}
